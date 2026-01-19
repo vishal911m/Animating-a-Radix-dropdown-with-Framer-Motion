@@ -1,6 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { AnimatePresence, easeOut, motion, useAnimationControls } from "framer-motion";
 import { ReactNode, useEffect, useState } from "react";
+import Dropdown from "./Dropdown";
 
 export default function App() {
   let [text, setText] = useState("Select an item");
@@ -22,7 +23,19 @@ export default function App() {
     <div className="flex min-h-full items-center justify-center">
       <div className="mx-auto w-full max-w-sm overflow-hidden rounded-md border border-gray-300 bg-white">
         <header className="border-b border-gray-100 p-2">
-          <DropdownMenu.Root open={open} onOpenChange={setOpen}>
+          <Dropdown>
+            <Dropdown.Button>
+              
+            </Dropdown.Button>
+
+            {/* <Dropdown.Menu>
+              <Dropdown.MenuItem onSelect={()=>{}}>Item 1</Dropdown.MenuItem>
+              <Dropdown.MenuItem onSelect={()=>{}}>Item 2</Dropdown.MenuItem>
+              <Dropdown.MenuItem onSelect={()=>{}}>Item 3</Dropdown.MenuItem>
+            </Dropdown.Menu> */}
+          </Dropdown>
+          
+          {/* <DropdownMenu.Root open={open} onOpenChange={setOpen}>
             <DropdownMenu.Trigger className="cursor-default select-none rounded px-4 text-2xl hover:bg-gray-200/50 focus-visible:outline-none data-[state=open]:bg-gray-200/75">
               
             </DropdownMenu.Trigger>
@@ -73,7 +86,8 @@ export default function App() {
                 </DropdownMenu.Portal>
                )} 
             </AnimatePresence>
-          </DropdownMenu.Root>
+          </DropdownMenu.Root> */}
+          
         </header>
         <div className="px-6 py-8 text-right">
           <p>{text}</p>
