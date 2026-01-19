@@ -1,4 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { ReactNode, useState } from "react";
 
 export default function App() {
@@ -17,10 +18,13 @@ export default function App() {
               <DropdownMenu.Content
                 align="start"
                 className="mt-1 overflow-hidden rounded bg-white/75 p-2 text-left shadow backdrop-blur"
+                asChild
               >
-                <Item onSelect={() => setText("Clicked Item 1")}>Item 1</Item>
-                <Item onSelect={() => setText("Clicked Item 2")}>Item 2</Item>
-                <Item onSelect={() => alert(";)")}>Item 3</Item>
+                <motion.div initial={{opacity: 0}} animate={{opacity: 1}}>
+                  <Item onSelect={() => setText("Clicked Item 1")}>Item 1</Item>
+                  <Item onSelect={() => setText("Clicked Item 2")}>Item 2</Item>
+                  <Item onSelect={() => alert(";)")}>Item 3</Item>
+                </motion.div>
               </DropdownMenu.Content>
             </DropdownMenu.Portal>
           </DropdownMenu.Root>
