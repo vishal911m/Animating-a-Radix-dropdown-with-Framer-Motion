@@ -53,12 +53,28 @@ function Item({
   children: ReactNode;
   onSelect?: () => void;
 }) {
+  let controls = useAnimationControls()
   return (
     <DropdownMenu.Item
-      onSelect={onSelect}
+      onSelect={(e)=>{
+        e.preventDefault();
+
+        controls.start({
+          backgroundColor: "#fff",
+          color: "#000",
+          transition: {duration: 0.25}
+        })
+        controls.start({
+          backgroundColor: "#38bdf8",
+          color: "#fff",
+          transition: {duration: 0.25}
+        })
+        onSelect();
+      }}
       className="w-40 select-none rounded px-2 py-1.5 text-gray-700 data-[highlighted]:bg-sky-400 data-[highlighted]:text-white data-[highlighted]:focus:outline-none"
+      asChild
     >
-      {children}
+      <motion.div animate={controls}>{children}</motion.div>
     </DropdownMenu.Item>
   );
 }
