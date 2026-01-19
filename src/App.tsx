@@ -5,7 +5,7 @@ import Dropdown from "./Dropdown";
 
 export default function App() {
   let [text, setText] = useState("Select an item");
-  let [open, setOpen] = useState(false);
+  // let [open, setOpen] = useState(false);
   let controls = useAnimationControls();
 
   async function closeMenu(){

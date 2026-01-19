@@ -8,7 +8,7 @@ export default function Dropdown({children}: {children: ReactNode}){
   let [open, setOpen] = useState(false);
 
   return (
-    <DropdownContext.Provider value={{open}}>
+    <DropdownContext.Provider value={{open, setOpen}}>
     <RadixDropdownMenu.Root open={open} onOpenChange={setOpen}>
       {children}
     </RadixDropdownMenu.Root>
@@ -22,19 +22,27 @@ function DropdownButton({children}: {children: ReactNode}){
       {children}
     </RadixDropdownMenu.Trigger>
   )
-}
+};
+
+let DropdownMenuContext = createContext();
 
 function DropdownMenu({children}: {children: ReactNode}){
-  let {open} = useContext(DropdownContext);
+  let {open, setOpen} = useContext(DropdownContext);
   let controls = useAnimationControls();
 
+  async function closeMenu(){
+    await controls.start("closed")
+    setOpen(false);
+  }
+
   useEffect(()=>{
-      if(open){
-        controls.start("open")
-      }
-    },[controls, open]);
+    if(open){
+      controls.start("open")
+    }
+  },[controls, open]);
 
   return (
+    <DropdownMenuContext.Provider value={{closeMenu}}>
     <AnimatePresence>
       {open && (
         <RadixDropdownMenu.Portal forceMount>
@@ -64,19 +72,22 @@ function DropdownMenu({children}: {children: ReactNode}){
         </RadixDropdownMenu.Portal>
        )} 
     </AnimatePresence>
+    </DropdownMenuContext.Provider>
   );
 }
 
 function DropdownMenuItem({
   children,
   onSelect = () => {},
-  closeMenu,
 }: {
   children: ReactNode;
   onSelect?: () => void;
-  closeMenu: () => void;
 }) {
-  let controls = useAnimationControls()
+  let controls = useAnimationControls();
+  let {closeMenu} = useContext(DropdownMenuContext);
+
+  console.log(closeMenu);
+
   return (
     <RadixDropdownMenu.Item
       onSelect={async(e)=>{
