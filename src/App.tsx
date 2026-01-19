@@ -29,10 +29,9 @@ export default function App() {
             </Dropdown.Button>
 
             <Dropdown.Menu>
-              this is the menu content
-              {/* <Dropdown.MenuItem onSelect={()=>{}}>Item 1</Dropdown.MenuItem>
+              <Dropdown.MenuItem onSelect={()=>{}}>Item 1</Dropdown.MenuItem>
               <Dropdown.MenuItem onSelect={()=>{}}>Item 2</Dropdown.MenuItem>
-              <Dropdown.MenuItem onSelect={()=>{}}>Item 3</Dropdown.MenuItem> */}
+              <Dropdown.MenuItem onSelect={()=>{}}>Item 3</Dropdown.MenuItem>
             </Dropdown.Menu>
           </Dropdown>
           

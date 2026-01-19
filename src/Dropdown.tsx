@@ -67,5 +67,10 @@ function DropdownMenu({children}: {children: ReactNode}){
   );
 }
 
+function DropdownMenuItem ({children}: {children: ReactNode}){
+ return children;
+}
+
 Dropdown.Button = DropdownButton;
 Dropdown.Menu = DropdownMenu;
+Dropdown.MenuItem = DropdownMenuItem;
