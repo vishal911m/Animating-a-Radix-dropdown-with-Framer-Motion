@@ -28,11 +28,11 @@ export default function App() {
               
             </Dropdown.Button>
 
-            {/* <Dropdown.Menu>
-              <Dropdown.MenuItem onSelect={()=>{}}>Item 1</Dropdown.MenuItem>
+            <Dropdown.Menu>
+              {/* <Dropdown.MenuItem onSelect={()=>{}}>Item 1</Dropdown.MenuItem>
               <Dropdown.MenuItem onSelect={()=>{}}>Item 2</Dropdown.MenuItem>
-              <Dropdown.MenuItem onSelect={()=>{}}>Item 3</Dropdown.MenuItem>
-            </Dropdown.Menu> */}
+              <Dropdown.MenuItem onSelect={()=>{}}>Item 3</Dropdown.MenuItem> */}
+            </Dropdown.Menu>
           </Dropdown>
           
           {/* <DropdownMenu.Root open={open} onOpenChange={setOpen}>

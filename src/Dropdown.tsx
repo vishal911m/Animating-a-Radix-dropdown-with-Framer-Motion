@@ -1,22 +1,27 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 
 export default function Dropdown({children}){
   let [open, setOpen] = useState(false);
 
   return (
-    <DropdownMenu.Root open={open} onOpenChange={setOpen}>
+    <RadixDropdownMenu.Root open={open} onOpenChange={setOpen}>
       {children}
-    </DropdownMenu.Root>
+    </RadixDropdownMenu.Root>
   )
 }
 
 function DropdownButton({children}){
   return(
-    <DropdownMenu.Trigger className="cursor-default select-none rounded px-4 text-2xl hover:bg-gray-200/50 focus-visible:outline-none data-[state=open]:bg-gray-200/75">
+    <RadixDropdownMenu.Trigger className="cursor-default select-none rounded px-4 text-2xl hover:bg-gray-200/50 focus-visible:outline-none data-[state=open]:bg-gray-200/75">
       {children}
-    </DropdownMenu.Trigger>
+    </RadixDropdownMenu.Trigger>
   )
 }
 
+function DropdownMenu(){
+  return null;
+}
+
 Dropdown.Button = DropdownButton;
+Dropdown.Menu = DropdownMenu;
