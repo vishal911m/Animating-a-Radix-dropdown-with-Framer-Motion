@@ -67,9 +67,46 @@ function DropdownMenu({children}: {children: ReactNode}){
   );
 }
 
-function DropdownMenuItem ({children}: {children: ReactNode}){
- return children;
+function DropdownMenuItem({
+  children,
+  onSelect = () => {},
+  closeMenu,
+}: {
+  children: ReactNode;
+  onSelect?: () => void;
+  closeMenu: () => void;
+}) {
+  let controls = useAnimationControls()
+  return (
+    <RadixDropdownMenu.Item
+      onSelect={async(e)=>{
+        e.preventDefault();
+
+        await controls.start({
+          backgroundColor: "#fff",
+          color: "#000",
+          transition: {duration: 0.04}
+        })
+        await controls.start({
+          backgroundColor: "#38bdf8",
+          color: "#fff",
+          transition: {duration: 0.04}
+        });
+        await sleep(0.075);
+
+        await closeMenu();
+        onSelect();
+      }}
+      className="w-40 select-none rounded px-2 py-1.5 text-gray-700 data-[highlighted]:bg-sky-400 data-[highlighted]:text-white data-[highlighted]:focus:outline-none"
+      asChild
+    >
+      <motion.div animate={controls}>{children}</motion.div>
+    </RadixDropdownMenu.Item>
+  );
 }
+
+const sleep = (s: number)=>
+  new Promise ((resolve) => setTimeout(resolve, s*1000));
 
 Dropdown.Button = DropdownButton;
 Dropdown.Menu = DropdownMenu;
