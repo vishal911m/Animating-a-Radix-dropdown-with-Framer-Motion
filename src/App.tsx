@@ -6,18 +6,18 @@ import Dropdown from "./Dropdown";
 export default function App() {
   let [text, setText] = useState("Select an item");
   // let [open, setOpen] = useState(false);
-  let controls = useAnimationControls();
+  // let controls = useAnimationControls();
 
-  async function closeMenu(){
-    await controls.start("closed")
-    setOpen(false);
-  }
+  // async function closeMenu(){
+  //   await controls.start("closed")
+  //   setOpen(false);
+  // }
 
-  useEffect(()=>{
-    if(open){
-      controls.start("open")
-    }
-  },[controls, open])
+  // useEffect(()=>{
+  //   if(open){
+  //     controls.start("open")
+  //   }
+  // },[controls, open])
 
   return (
     <div className="flex min-h-full items-center justify-center">
@@ -29,9 +29,9 @@ export default function App() {
             </Dropdown.Button>
 
             <Dropdown.Menu>
-              <Dropdown.MenuItem onSelect={()=>{}}>Item 1</Dropdown.MenuItem>
-              <Dropdown.MenuItem onSelect={()=>{}}>Item 2</Dropdown.MenuItem>
-              <Dropdown.MenuItem onSelect={()=>{}}>Item 3</Dropdown.MenuItem>
+              <Dropdown.MenuItem onSelect={()=>setText("Clicked Item1")}>Item 1</Dropdown.MenuItem>
+              <Dropdown.MenuItem onSelect={()=>setText("Clicked Item2")}>Item 2</Dropdown.MenuItem>
+              <Dropdown.MenuItem onSelect={()=>alert(";)")}>Item 3</Dropdown.MenuItem>
             </Dropdown.Menu>
           </Dropdown>
           
@@ -97,43 +97,43 @@ export default function App() {
   );
 }
 
-function Item({
-  children,
-  onSelect = () => {},
-  closeMenu,
-}: {
-  children: ReactNode;
-  onSelect?: () => void;
-  closeMenu: () => void;
-}) {
-  let controls = useAnimationControls()
-  return (
-    <DropdownMenu.Item
-      onSelect={async(e)=>{
-        e.preventDefault();
+// function Item({
+//   children,
+//   onSelect = () => {},
+//   closeMenu,
+// }: {
+//   children: ReactNode;
+//   onSelect?: () => void;
+//   closeMenu: () => void;
+// }) {
+//   let controls = useAnimationControls()
+//   return (
+//     <DropdownMenu.Item
+//       onSelect={async(e)=>{
+//         e.preventDefault();
 
-        await controls.start({
-          backgroundColor: "#fff",
-          color: "#000",
-          transition: {duration: 0.04}
-        })
-        await controls.start({
-          backgroundColor: "#38bdf8",
-          color: "#fff",
-          transition: {duration: 0.04}
-        });
-        await sleep(0.075);
+//         await controls.start({
+//           backgroundColor: "#fff",
+//           color: "#000",
+//           transition: {duration: 0.04}
+//         })
+//         await controls.start({
+//           backgroundColor: "#38bdf8",
+//           color: "#fff",
+//           transition: {duration: 0.04}
+//         });
+//         await sleep(0.075);
 
-        await closeMenu();
-        onSelect();
-      }}
-      className="w-40 select-none rounded px-2 py-1.5 text-gray-700 data-[highlighted]:bg-sky-400 data-[highlighted]:text-white data-[highlighted]:focus:outline-none"
-      asChild
-    >
-      <motion.div animate={controls}>{children}</motion.div>
-    </DropdownMenu.Item>
-  );
-}
+//         await closeMenu();
+//         onSelect();
+//       }}
+//       className="w-40 select-none rounded px-2 py-1.5 text-gray-700 data-[highlighted]:bg-sky-400 data-[highlighted]:text-white data-[highlighted]:focus:outline-none"
+//       asChild
+//     >
+//       <motion.div animate={controls}>{children}</motion.div>
+//     </DropdownMenu.Item>
+//   );
+// }
 
-const sleep = (s: number)=>
-  new Promise ((resolve) => setTimeout(resolve, s*1000));
+// const sleep = (s: number)=>
+//   new Promise ((resolve) => setTimeout(resolve, s*1000));
