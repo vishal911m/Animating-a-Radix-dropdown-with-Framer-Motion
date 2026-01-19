@@ -6,7 +6,7 @@ import Dropdown from "./Dropdown";
 export default function App() {
   let [text, setText] = useState("Select an item");
   let [open, setOpen] = useState(false);
-  let controls = useAnimationControls()
+  let controls = useAnimationControls();
 
   async function closeMenu(){
     await controls.start("closed")
@@ -29,6 +29,7 @@ export default function App() {
             </Dropdown.Button>
 
             <Dropdown.Menu>
+              this is the menu content
               {/* <Dropdown.MenuItem onSelect={()=>{}}>Item 1</Dropdown.MenuItem>
               <Dropdown.MenuItem onSelect={()=>{}}>Item 2</Dropdown.MenuItem>
               <Dropdown.MenuItem onSelect={()=>{}}>Item 3</Dropdown.MenuItem> */}
