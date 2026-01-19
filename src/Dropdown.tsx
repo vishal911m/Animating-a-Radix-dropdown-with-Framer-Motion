@@ -1,10 +1,10 @@
 import * as RadixDropdownMenu from "@radix-ui/react-dropdown-menu";
 import { AnimatePresence, easeOut, motion, useAnimationControls } from "framer-motion";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
-let DropdownContext = createContext();
+let DropdownContext = createContext({open: false});
 
-export default function Dropdown({children}){
+export default function Dropdown({children}: {children: ReactNode}){
   let [open, setOpen] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ export default function Dropdown({children}){
   )
 }
 
-function DropdownButton({children}){
+function DropdownButton({children}: {children: ReactNode}){
   return(
     <RadixDropdownMenu.Trigger className="cursor-default select-none rounded px-4 text-2xl hover:bg-gray-200/50 focus-visible:outline-none data-[state=open]:bg-gray-200/75">
       {children}
@@ -24,7 +24,7 @@ function DropdownButton({children}){
   )
 }
 
-function DropdownMenu({children}){
+function DropdownMenu({children}: {children: ReactNode}){
   let {open} = useContext(DropdownContext);
   let controls = useAnimationControls();
 
