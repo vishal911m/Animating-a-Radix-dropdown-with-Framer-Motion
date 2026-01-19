@@ -1,5 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
+import { AnimatePresence, easeOut, motion, useAnimationControls } from "framer-motion";
 import { ReactNode, useEffect, useState } from "react";
 
 export default function App() {
@@ -8,13 +8,13 @@ export default function App() {
   let controls = useAnimationControls()
 
   async function closeMenu(){
-    await controls.start({opacity: 0})
+    await controls.start("closed")
     setOpen(false);
   }
 
   useEffect(()=>{
     if(open){
-      controls.start({opacity: 1})
+      controls.start("open")
     }
   },[controls, open])
 
@@ -36,9 +36,19 @@ export default function App() {
                     asChild
                   >
                     <motion.div 
-                      initial={{opacity: 0}} 
+                      initial={"closed"} 
                       animate={controls}
-                      exit={{opacity: 0}}
+                      exit={"closed"}
+                      variants={{
+                        open: {
+                          opacity: 1, 
+                          transition: {ease: "easeOut", duration: 0.1}
+                        },
+                        closed: {
+                          opacity: 0 , 
+                          transition: {ease: "easeIn", duration: 0.2}
+                        }
+                      }}
                     >
                       <Item 
                         closeMenu={closeMenu} 
@@ -91,13 +101,14 @@ function Item({
         await controls.start({
           backgroundColor: "#fff",
           color: "#000",
-          transition: {duration: 0.1}
+          transition: {duration: 0.04}
         })
         await controls.start({
           backgroundColor: "#38bdf8",
           color: "#fff",
-          transition: {duration: 0.1}
-        })
+          transition: {duration: 0.04}
+        });
+        await sleep(0.075);
 
         await closeMenu();
         onSelect();
@@ -109,3 +120,6 @@ function Item({
     </DropdownMenu.Item>
   );
 }
+
+const sleep = (s: number)=>
+  new Promise ((resolve) => setTimeout(resolve, s*1000));
