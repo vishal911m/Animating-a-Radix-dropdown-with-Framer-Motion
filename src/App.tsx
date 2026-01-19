@@ -1,14 +1,22 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 export default function App() {
   let [text, setText] = useState("Select an item");
   let [open, setOpen] = useState(false);
+  let controls = useAnimationControls()
 
-  function closeMenu(){
+  async function closeMenu(){
+    await controls.start({opacity: 0})
     setOpen(false);
   }
+
+  useEffect(()=>{
+    if(open){
+      controls.start({opacity: 1})
+    }
+  },[controls, open])
 
   return (
     <div className="flex min-h-full items-center justify-center">
@@ -29,7 +37,7 @@ export default function App() {
                   >
                     <motion.div 
                       initial={{opacity: 0}} 
-                      animate={{opacity: 1}}
+                      animate={controls}
                       exit={{opacity: 0}}
                     >
                       <Item 
@@ -91,7 +99,7 @@ function Item({
           transition: {duration: 0.1}
         })
 
-        closeMenu();
+        await closeMenu();
         onSelect();
       }}
       className="w-40 select-none rounded px-2 py-1.5 text-gray-700 data-[highlighted]:bg-sky-400 data-[highlighted]:text-white data-[highlighted]:focus:outline-none"
