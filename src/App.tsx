@@ -6,6 +6,10 @@ export default function App() {
   let [text, setText] = useState("Select an item");
   let [open, setOpen] = useState(false);
 
+  function closeMenu(){
+    setOpen(false);
+  }
+
   return (
     <div className="flex min-h-full items-center justify-center">
       <div className="mx-auto w-full max-w-sm overflow-hidden rounded-md border border-gray-300 bg-white">
@@ -28,9 +32,24 @@ export default function App() {
                       animate={{opacity: 1}}
                       exit={{opacity: 0}}
                     >
-                      <Item onSelect={() => setText("Clicked Item 1")}>Item 1</Item>
-                      <Item onSelect={() => setText("Clicked Item 2")}>Item 2</Item>
-                      <Item onSelect={() => alert(";)")}>Item 3</Item>
+                      <Item 
+                        closeMenu={closeMenu} 
+                        onSelect={() => setText("Clicked Item 1")}
+                      >
+                        Item 1
+                      </Item>
+                      <Item 
+                        closeMenu={closeMenu} 
+                        onSelect={() => setText("Clicked Item 2")}
+                      >
+                        Item 2
+                      </Item>
+                      <Item 
+                        closeMenu={closeMenu} 
+                        onSelect={() => alert(";)")}
+                      >
+                        Item 3
+                      </Item>
                     </motion.div>
                   </DropdownMenu.Content>
                 </DropdownMenu.Portal>
@@ -49,26 +68,30 @@ export default function App() {
 function Item({
   children,
   onSelect = () => {},
+  closeMenu,
 }: {
   children: ReactNode;
   onSelect?: () => void;
+  closeMenu: () => void;
 }) {
   let controls = useAnimationControls()
   return (
     <DropdownMenu.Item
-      onSelect={(e)=>{
+      onSelect={async(e)=>{
         e.preventDefault();
 
-        controls.start({
+        await controls.start({
           backgroundColor: "#fff",
           color: "#000",
-          transition: {duration: 0.25}
+          transition: {duration: 0.1}
         })
-        controls.start({
+        await controls.start({
           backgroundColor: "#38bdf8",
           color: "#fff",
-          transition: {duration: 0.25}
+          transition: {duration: 0.1}
         })
+
+        closeMenu();
         onSelect();
       }}
       className="w-40 select-none rounded px-2 py-1.5 text-gray-700 data-[highlighted]:bg-sky-400 data-[highlighted]:text-white data-[highlighted]:focus:outline-none"
